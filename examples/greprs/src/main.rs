@@ -1,4 +1,7 @@
 use std::env;
+use std::fs::File;
+// Traits for IO
+use std::io::prelude::*;
 
 fn main() {
     // Call .collect() to exhaust the iterator
@@ -13,4 +16,12 @@ fn main() {
 
     println!("Searching for {}", query);
     println!("In file {}", filename);
+
+    let mut f = File::open(filename).expect("file not found");
+
+    let mut contents = String::new();
+    f.read_to_string(&mut contents)
+        .expect("something went wrong reading the file");
+
+    println!("With text:\n{}", contents);
 }
