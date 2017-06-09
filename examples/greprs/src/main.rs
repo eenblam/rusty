@@ -16,9 +16,6 @@ fn main() {
         process::exit(1);
     });
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
-
     // Here, we can `if let ...` since unwrap_or_else doesn't make sense
     // as we don't care to unwrap () in the Ok case
     if let Err(e) = greprs::run(config) {
