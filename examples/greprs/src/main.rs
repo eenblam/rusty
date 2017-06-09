@@ -1,9 +1,9 @@
+extern crate greprs;
+
 use std::env;
-use std::error::Error;
-use std::fs::File;
-// Traits for IO
-use std::io::prelude::*;
 use std::process;
+
+use greprs::Config;
 
 fn main() {
     // Call .collect() to exhaust the iterator
@@ -21,40 +21,8 @@ fn main() {
 
     // Here, we can `if let ...` since unwrap_or_else doesn't make sense
     // as we don't care to unwrap () in the Ok case
-    if let Err(e) = run(config) {
+    if let Err(e) = greprs::run(config) {
         println!("Application error: {}", e);
         process::exit(1);
     }
-}
-
-struct Config {
-    query: String,
-    filename: String
-}
-
-impl Config {
-    fn new(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
-        let query = args[1].clone();
-        let filename = args[2].clone();
-
-        Ok(Config {
-            query: query,
-            filename: filename
-        })
-    }
-}
-
-fn run(config: Config) -> Result<(), Box<Error>> {
-    // ? returns the error value (if one is raised) of the preceding function
-    let mut f = File::open(config.filename)?;
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)?;
-
-    println!("With text:\n{}", contents);
-
-    Ok(())
 }
