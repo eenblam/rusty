@@ -9,8 +9,6 @@ fn main() {
     // Note that collect() can create a number of collections...
     // ...so it's good to annotate with Vec<String>.
     let args: Vec<String> = env::args().collect();
-    // :? is the debug formatter
-    println!("{:?}", args);
 
     let config = Config::new(&args).unwrap_or_else(|err| {
         println!("Problem parsing arguments: {}", err);
