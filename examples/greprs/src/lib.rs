@@ -37,10 +37,9 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
     let mut contents = String::new();
     f.read_to_string(&mut contents)?;
 
-    let results = if config.case_sensitive {
-        search(&config.query, &contents)
-    } else {
-        search_case_insensitive(&config.query, &contents)
+    let results = match config.case_sensitive {
+        true => search(&config.query, &contents),
+        false => search_case_insensitive(&config.query, &contents)
     };
 
     for line in results {
