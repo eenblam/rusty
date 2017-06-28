@@ -1,0 +1,6 @@
+[package]
+name = "match_subcommands"
+version = "0.1.0"
+authors = ["eenblam <ben.a.elam@gmail.com>"]
+
+[dependencies]
